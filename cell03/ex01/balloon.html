@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ระเบิดลูกโป่ง</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+
+    #balloon {
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="balloon"></div>
+
+  <script>
+    const balloon = document.getElementById('balloon');
+    const colors = ['red', 'green', 'blue'];
+    let colorIndex = 0;
+    let size = 200;
+
+    // ฟังก์ชันเปลี่ยนสีไปข้างหน้า
+    function nextColor() {
+      colorIndex = (colorIndex + 1) % colors.length;
+      return colors[colorIndex];
+    }
+
+    // ฟังก์ชันเปลี่ยนสีถอยหลัง
+    function previousColor() {
+      colorIndex = (colorIndex - 1 + colors.length) % colors.length;
+      return colors[colorIndex];
+    }
+
+    // เมื่อคลิก: เพิ่มขนาด +10px และเปลี่ยนสี
+    balloon.addEventListener('click', () => {
+      size += 10;
+
+      if (size > 420) {
+        alert('💥 ลูกโป่งระเบิด!');
+        size = 200;
+        colorIndex = 0;
+      } else {
+        balloon.style.backgroundColor = nextColor();
+      }
+
+      balloon.style.width = balloon.style.height = size + 'px';
+    });
+
+    // เมื่อเมาส์ออก: ลดขนาด -5px และเปลี่ยนสีย้อนกลับ
+    balloon.addEventListener('mouseleave', () => {
+      if (size > 200) {
+        size -= 5;
+        balloon.style.backgroundColor = previousColor();
+        balloon.style.width = balloon.style.height = size + 'px';
+      }
+    });
+  </script>
+
+</body>
+</html>
